@@ -1,0 +1,21 @@
+version: '3.7'
+networks:
+  default:
+    name: fpl
+    external: true
+volumes:
+  node_modules:
+services:
+  app:
+    tty: true
+    stdin_open: true
+    image: fpl-vue
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: yarn run dev
+    ports:
+      - '8080:8080'
+    volumes:
+      - .:/app/fpl-vue:delegated
+      - node_modules:/app/fpl-vue/node_modules
