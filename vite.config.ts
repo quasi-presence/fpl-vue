@@ -7,5 +7,9 @@ export default defineConfig({
   server: {
     host: true,
     port: 8080
-  }
+  },
+  //add test to vite config
+  test: {
+    environment: 'happy-dom'
+  },
 })
