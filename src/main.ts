@@ -8,4 +8,7 @@ import '@picocss/pico'
 import { createPinia } from 'pinia'
 const pinia = createPinia()
 
-createApp(App).use(pinia).mount('#app')
+// Vue Router
+import router from './router'
+
+createApp(App).use(pinia).use(router).mount('#app')

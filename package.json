@@ -12,7 +12,8 @@
   "dependencies": {
     "@picocss/pico": "^1.5.7",
     "pinia": "^2.0.32",
-    "vue": "^3.2.45"
+    "vue": "^3.2.45",
+    "vue-router": "4"
   },
   "devDependencies": {
     "@testing-library/vue": "^6.6.1",
