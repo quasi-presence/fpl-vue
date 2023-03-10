@@ -3,16 +3,36 @@
 </script>
 
 <template>
-  <main class="container">
-    <nav>
-      <ul>
-        <li><strong>Fantasy Points League</strong></li>
-      </ul>
-      <ul>
-        <li><router-link to="/">Home</router-link></li>
-      </ul>
-    </nav>
-
-    <router-view></router-view>
+  <main class="hero container-fluid">
+    <div class="overlay">
+      <div class="container">
+        <router-view></router-view>
+      </div>
+    </div>
   </main>
 </template>
+
+<style>
+html, body {
+  height: 100%;
+}
+
+#app {
+  height: 100%;
+}
+
+.hero {
+  height: 100%;
+  background-image: url("assets/car-racing-g08e7ed3db_1920.jpg");
+  background-position: center;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height:100%;
+  width: 100%;
+  background: rgba(0,0,0,0.7);
+}
+</style>
