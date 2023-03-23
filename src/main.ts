@@ -1,8 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
-// Pico.css https://picocss.com/
-import '@picocss/pico'
+import './index.css'
 
 // Pinia
 import { createPinia } from 'pinia'
