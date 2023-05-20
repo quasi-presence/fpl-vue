@@ -1,30 +1,42 @@
-import { defineStore } from 'pinia'
-import { ref } from 'vue'
-import axios from "axios"
-import router from '../router'
+import { defineStore } from 'pinia';
+import { ref } from 'vue';
+import axios from 'axios';
+import router from '../router';
+import { User } from '../interfaces/user';
 
 export const useUserStore = defineStore('user', () => {
-  const currentUser = ref(JSON.parse(localStorage.getItem('currentUser')))
+  const storageKey: string = 'FPL::currentUser';
+  const currentUser = ref<User | null>();
 
-  function create(email, password) {
+  if (currentUser.value == null && localStorage.getItem(storageKey) != null) {
+    let storedUserData: string = localStorage.getItem(storageKey) as string;
+    currentUser.value = JSON.parse(storedUserData) as User;
+  }
+
+  function create(email: string | null, password: string | null): void {
     axios
       .post("http://localhost:3000/api/v1/users", { email: email, password: password})
       .then((response) => {
-        if (this.currentUser === undefined) {
-          this.login(email, password)
+        if (currentUser === undefined) {
+          login(email, password);
         }
       })
   }
 
-  function login(email, password) {
-    axios
-      .post("http://localhost:3000/auth/login", { email: email, password: password})
+  function login(email: string | null, password: string | null): void {
+    axios.post("http://localhost:3000/auth/login", { email: email, password: password})
       .then((response) => {
-        this.currentUser = response.data
-        localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-        router.push({ name: 'users', params: { id: this.currentUser.id } })
+        currentUser.value = response.data as User;
+        localStorage.setItem(storageKey, JSON.stringify(currentUser.value));
+        router.push({ name: 'user' });
       })
   }
 
-  return { currentUser, create, login }
+  function logout(): void {
+    currentUser.value = null;
+    localStorage.removeItem(storageKey);
+    router.push({ name: 'home' });
+  }
+
+  return { currentUser, create, login, logout };
 })
