@@ -29,10 +29,8 @@
 </template>
 
 <script setup lang="ts">
-  import { useUserStore } from '../stores/user';
   import { Actions } from '../actions';
 
-  const store = useUserStore();
   const credentials = { email: null, password: null };
 
   function joinNow(): void {

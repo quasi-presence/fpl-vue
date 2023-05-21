@@ -4,6 +4,10 @@ import { IUser } from '../interfaces';
 import { useUserStore } from '../stores/user';
 
 export class Actions {
+  public static getState() {
+    return useUserStore();
+  }
+
   public static login(email: string | null, password: string | null): void {
     const store = useUserStore();
 

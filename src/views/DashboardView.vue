@@ -10,10 +10,7 @@
 
 <script setup lang="ts">
   import { ILeague } from '../interfaces';
-  import { useUserStore } from '../stores/user';
   import UserLeagueCard from '../components/UserLeagueCard.vue';
-
-  const store = useUserStore();
 
   const leagues: ILeague[] = [
     {
