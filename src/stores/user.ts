@@ -5,6 +5,8 @@ import { IUser } from '../interfaces';
 export const useUserStore = defineStore('user', () => {
   const storageKey: string = 'FPL::currentUser';
   const currentUser = ref<IUser | null>();
+  const sidebarOpen = ref<boolean>(true);
+  const profileMenuOpen = ref<boolean>(false);
 
   if (currentUser.value == null && localStorage.getItem(storageKey) != null) {
     let storedUserData: string = localStorage.getItem(storageKey) as string;
@@ -21,5 +23,5 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  return { currentUser, updateCurrentUser };
+  return { currentUser, updateCurrentUser, sidebarOpen, profileMenuOpen };
 })

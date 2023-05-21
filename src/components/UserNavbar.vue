@@ -1,7 +1,7 @@
 <template>
   <header class="flex w-full items-center justify-between border-b-2 border-gray-200 p-2">
     <div class="flex items-center space-x-2">
-      <button type="button" class="text-3xl">
+      <button type="button" class="text-3xl" @click="toggleSidebar">
         <i class="bx bx-menu mt-1"></i>
       </button>
       <div class="text-xl text-cyan-500">Fantasy Points League</div>
@@ -13,7 +13,7 @@
       </button>
 
       <div class="absolute right-2 mt-1 w-48 divide-y divide-gray-200 rounded-md border border-gray-200 bg-white shadow-md"
-           :class="{ hidden: profileMenuClosed }">
+           :class="{ hidden: !store.profileMenuOpen }">
         <div class="flex flex-col space-y-3 p-2">
           <button class="flex items-center space-x-2 transition hover:text-cyan-600">
             <span class="text-2xl"><i class="bx bx-user"></i></span>
@@ -30,16 +30,20 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue';
   import { Actions } from '../actions';
 
-  const profileMenuClosed = ref<boolean>(true);
+  const store = Actions.getState();
+
+  function toggleSidebar(): void {
+    Actions.toggleSidebar();
+  }
 
   function toggleProfileMenu(): void {
-    profileMenuClosed.value = !profileMenuClosed.value;
+    Actions.toggleProfileMenu();
   }
 
   function logout(): void {
+    Actions.toggleProfileMenu();
     Actions.logout();
   }
 </script>

@@ -87,5 +87,13 @@ export class Actions {
       },
     ];
   }
+
+  public static toggleSidebar(): void {
+    Actions.getState().sidebarOpen = !Actions.getState().sidebarOpen;
+  }
+
+  public static toggleProfileMenu(): void {
+    Actions.getState().profileMenuOpen = !Actions.getState().profileMenuOpen;
+  }
 }
 
