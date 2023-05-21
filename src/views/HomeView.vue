@@ -29,16 +29,16 @@
 </template>
 
 <script setup lang="ts">
-  import { ILoginForm } from '../interfaces';
+  import { ILoginData } from '../interfaces';
   import { Actions } from '../actions';
 
-  const form = {} as ILoginForm;
+  const form = {} as ILoginData;
 
   function joinNow(): void {
-    Actions.createUser(form.email, form.password);
+    Actions.createUser(form);
   }
 
   function login(): void {
-    Actions.login(form.email, form.password);
+    Actions.login(form);
   }
 </script>

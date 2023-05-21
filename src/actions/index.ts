@@ -1,6 +1,6 @@
 import axios from 'axios';
 import router from '../router';
-import { IUser, ILeague, IProfileData } from '../interfaces';
+import { IUser, ILeague, IProfileData, ILoginData } from '../interfaces';
 import { useUserStore } from '../stores/user';
 
 export class Actions {
@@ -9,10 +9,10 @@ export class Actions {
     return useUserStore();
   }
 
-  public static login(email: string | null, password: string | null): void {
+  public static login(loginData: ILoginData): void {
     const store = useUserStore();
 
-    axios.post("http://localhost:3000/auth/login", { email: email, password: password})
+    axios.post("http://localhost:3000/auth/login", loginData)
       .then((response) => {
         store.updateCurrentUser(response.data as IUser);
         router.push({ name: 'dashboard' });
@@ -27,15 +27,15 @@ export class Actions {
     router.push({ name: 'home' });
   }
 
-  public static createUser(email: string | null, password: string | null): void {
+  public static createUser(loginData: ILoginData): void {
     const store = useUserStore();
 
     axios
-      .post("http://localhost:3000/api/v1/users", { email: email, password: password })
+      .post("http://localhost:3000/api/v1/users", loginData)
       .then((response) => {
         if (store.currentUser == null) {
           // TODO: set welcome message after creating user
-          Actions.login(email, password);
+          Actions.login(loginData);
         }
       })
   }

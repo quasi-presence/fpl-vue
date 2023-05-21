@@ -13,7 +13,7 @@ export interface ILeague {
   position?: number;
 }
 
-export interface ILoginForm {
+export interface ILoginData {
   email: string;
   password: string;
 }
