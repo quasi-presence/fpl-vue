@@ -1,6 +1,7 @@
 export interface IUser {
   id: number | null;
   email: string | null;
+  imageUrl: string | null;
   token: string | null;
 }
 
@@ -15,4 +16,9 @@ export interface ILeague {
 export interface ILoginForm {
   email: string;
   password: string;
+}
+
+export interface IProfileData extends IUser {
+  password: string | null;
+  passwordConfirmation: string | null;
 }

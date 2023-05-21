@@ -15,7 +15,7 @@
       <div class="absolute right-2 mt-1 w-48 divide-y divide-gray-200 rounded-md border border-gray-200 bg-white shadow-md"
            :class="{ hidden: !store.profileMenuOpen }">
         <div class="flex flex-col space-y-3 p-2">
-          <button class="flex items-center space-x-2 transition hover:text-cyan-600">
+          <button class="flex items-center space-x-2 transition hover:text-cyan-600" @click="profile">
             <span class="text-2xl"><i class="bx bx-user"></i></span>
             <span>Profile</span>
           </button>
@@ -45,5 +45,10 @@
   function logout(): void {
     Actions.toggleProfileMenu();
     Actions.logout();
+  }
+
+  function profile(): void {
+    Actions.toggleProfileMenu();
+    Actions.viewProfile();
   }
 </script>

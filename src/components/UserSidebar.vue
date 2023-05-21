@@ -2,7 +2,7 @@
   <aside class="flex w-72 flex-col space-y-2 border-r-2 border-gray-200 p-2"
          :class="{ hidden: !store.sidebarOpen }">
     <UserSidebarLink name="Dashboard" icon="bx bx-home" @click="dashboard" />
-    <UserSidebarLink name="Profile" icon="bx bx-user" />
+    <UserSidebarLink name="Profile" icon="bx bx-user" @click="profile" />
     <UserSidebarLink name="Log Out" icon="bx bx-log-out" @click="logout" />
   </aside>
 </template>
@@ -15,6 +15,10 @@
 
   function dashboard(): void {
     Actions.viewDashboard();
+  }
+
+  function profile(): void {
+    Actions.viewProfile();
   }
 
   function logout(): void {

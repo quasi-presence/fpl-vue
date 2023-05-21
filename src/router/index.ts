@@ -4,10 +4,12 @@ import HomeLayout from '../layouts/HomeLayout.vue';
 import UserLayout from '../layouts/UserLayout.vue';
 import HomeView from '../views/HomeView.vue';
 import DashboardView from '../views/DashboardView.vue';
+import ProfileView from '../views/ProfileView.vue';
 
 const routes: Array<RouteRecordRaw> = [
   { path: '/', name: 'home', component: HomeView, meta: { layout: HomeLayout } },
   { path: '/dashboard', name: 'dashboard', component: DashboardView, meta: { layout: UserLayout, requiresAuth: true } },
+  { path: '/profile', name: 'profile', component: ProfileView, meta: { layout: UserLayout, requiresAuth: true } },
 ];
 
 const router = createRouter({

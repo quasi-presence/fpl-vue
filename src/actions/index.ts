@@ -1,9 +1,10 @@
 import axios from 'axios';
 import router from '../router';
-import { IUser, ILeague } from '../interfaces';
+import { IUser, ILeague, IProfileData } from '../interfaces';
 import { useUserStore } from '../stores/user';
 
 export class Actions {
+  // TODO: rename the function to getStore to avoid confusion
   public static getState() {
     return useUserStore();
   }
@@ -21,6 +22,7 @@ export class Actions {
   public static logout(): void {
     const store = useUserStore();
 
+    // TODO: ensure profileMenu gets closed here
     store.updateCurrentUser(null);
     router.push({ name: 'home' });
   }
@@ -29,19 +31,39 @@ export class Actions {
     const store = useUserStore();
 
     axios
-      .post("http://localhost:3000/api/v1/users", { email: email, password: password})
+      .post("http://localhost:3000/api/v1/users", { email: email, password: password })
       .then((response) => {
-        if (store.currentUser === undefined) {
+        if (store.currentUser == null) {
+          // TODO: set welcome message after creating user
           Actions.login(email, password);
         }
       })
+  }
+
+  public static saveProfile(profileData: IProfileData): void {
+    const store = useUserStore();
+    const url: string = "http://localhost:3000/api/v1/users/" + store.currentUser?.id;
+
+    axios.put(url, profileData, { headers: { 'Authorization': store.currentUser?.token} })
+    .then((response) => {
+      store.updateCurrentUser(response.data as IUser);
+      router.push({ name: 'dashboard' });
+    })
+    .catch((error) => {
+      console.log("saveProfile failed: " + error);
+    });
   }
 
   public static viewDashboard(): void {
     router.push({ name: 'dashboard' });
   }
 
+  public static viewProfile(): void {
+    router.push({ name: 'profile' });
+  }
+
   public static getLeagues(): ILeague[] {
+    // TODO: instead of exposing getLeagues include perhaps we should fetch leagues as part of the viewDashboard action
     return [
       {
         id: 1230,
