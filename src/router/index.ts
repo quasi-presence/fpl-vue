@@ -3,11 +3,11 @@ import { useUserStore } from '../stores/user';
 import HomeLayout from '../layouts/HomeLayout.vue';
 import UserLayout from '../layouts/UserLayout.vue';
 import HomeView from '../views/HomeView.vue';
-import UserView from '../views/UserView.vue';
+import DashboardView from '../views/DashboardView.vue';
 
 const routes: Array<RouteRecordRaw> = [
   { path: '/', name: 'home', component: HomeView, meta: { layout: HomeLayout } },
-  { path: '/user', name: 'user', component: UserView, meta: { layout: UserLayout, requiresAuth: true } },
+  { path: '/dashboard', name: 'dashboard', component: DashboardView, meta: { layout: UserLayout, requiresAuth: true } },
 ];
 
 const router = createRouter({
@@ -28,7 +28,7 @@ router.beforeEach((to, from) => {
   }
 
   if (to.name == 'home' && userAuthenticated) {
-    return { name: 'user' };
+    return { name: 'dashboard' };
   }
 })
 

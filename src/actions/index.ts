@@ -10,7 +10,7 @@ export class Actions {
     axios.post("http://localhost:3000/auth/login", { email: email, password: password})
       .then((response) => {
         store.updateCurrentUser(response.data as IUser);
-        router.push({ name: 'user' });
+        router.push({ name: 'dashboard' });
       })
   }
 
@@ -31,6 +31,10 @@ export class Actions {
           Actions.login(email, password);
         }
       })
+  }
+
+  public static viewDashboard(): void {
+    router.push({ name: 'dashboard' });
   }
 }
 

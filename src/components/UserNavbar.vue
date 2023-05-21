@@ -31,9 +31,8 @@
 
 <script setup lang="ts">
   import { ref } from 'vue';
-  import { useUserStore } from '../stores/user';
+  import { Actions } from '../actions';
 
-  const store = useUserStore();
   const profileMenuClosed = ref<boolean>(true);
 
   function toggleProfileMenu(): void {
@@ -41,6 +40,6 @@
   }
 
   function logout(): void {
-    store.logout();
+    Actions.logout();
   }
 </script>

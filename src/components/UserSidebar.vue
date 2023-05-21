@@ -7,17 +7,15 @@
 </template>
 
 <script setup lang="ts">
+  import { Actions } from '../actions';
   import router from '../router';
-  import { useUserStore } from '../stores/user';
   import UserSidebarLink from './UserSidebarLink.vue';
 
-  const store = useUserStore();
-
   function dashboard(): void {
-    router.push({ name: 'user' });
+    Actions.viewDashboard();
   }
 
   function logout(): void {
-    store.logout();
+    Actions.logout();
   }
 </script>
