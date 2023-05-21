@@ -1,14 +1,15 @@
 <template>
-    <div>
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" />
+  <div class="min-h-screen w-full bg-gray-100 text-gray-700">
+    <UserNavbar />
+    <div class="flex">
       <UserSidebar />
-      <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
-        <UserNavbar />
-        <slot></slot>
-      </div>
+      <slot></slot>
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-  import UserSidebar from '../components/UserSidebar.vue';
   import UserNavbar from '../components/UserNavbar.vue';
+  import UserSidebar from '../components/UserSidebar.vue';
 </script>
