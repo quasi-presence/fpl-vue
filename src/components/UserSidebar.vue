@@ -8,7 +8,6 @@
 
 <script setup lang="ts">
   import { Actions } from '../actions';
-  import router from '../router';
   import UserSidebarLink from './UserSidebarLink.vue';
 
   function dashboard(): void {
