@@ -11,3 +11,8 @@ export interface ILeague {
   memberCount?: number;
   position?: number;
 }
+
+export interface ILoginForm {
+  email: string;
+  password: string;
+}

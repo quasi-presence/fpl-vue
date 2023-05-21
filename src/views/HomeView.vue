@@ -7,11 +7,11 @@
     <form class="flex flex-col items-center text-center space-y-4">
       <input type="email"
              placeholder="Email address"
-             v-model="credentials.email"
+             v-model="form.email"
              class="rounded-3xl border-none shadow-lg outline-none w-80 px-6 py-2" />
       <input type="password"
              placeholder="Password"
-             v-model="credentials.password"
+             v-model="form.password"
              class="rounded-3xl border-none shadow-lg outline-none w-80 px-6 py-2" />
       <div>
         <button type="button"
@@ -29,15 +29,16 @@
 </template>
 
 <script setup lang="ts">
+  import { ILoginForm } from '../interfaces';
   import { Actions } from '../actions';
 
-  const credentials = { email: null, password: null };
+  const form = {} as ILoginForm;
 
   function joinNow(): void {
-    Actions.createUser(credentials.email, credentials.password);
+    Actions.createUser(form.email, form.password);
   }
 
   function login(): void {
-    Actions.login(credentials.email, credentials.password);
+    Actions.login(form.email, form.password);
   }
 </script>
