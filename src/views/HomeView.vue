@@ -30,15 +30,16 @@
 
 <script setup lang="ts">
   import { useUserStore } from '../stores/user';
+  import { Actions } from '../actions';
 
   const store = useUserStore();
   const credentials = { email: null, password: null };
 
   function joinNow(): void {
-    store.create(credentials.email, credentials.password);
+    Actions.createUser(credentials.email, credentials.password);
   }
 
   function login(): void {
-    store.login(credentials.email, credentials.password);
+    Actions.login(credentials.email, credentials.password);
   }
 </script>

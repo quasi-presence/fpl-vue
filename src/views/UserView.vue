@@ -9,8 +9,8 @@
 </template>
 
 <script setup lang="ts">
-  import { useUserStore } from '../stores/user';
   import { ILeague } from '../interfaces';
+  import { useUserStore } from '../stores/user';
   import UserLeagueCard from '../components/UserLeagueCard.vue';
 
   const store = useUserStore();

@@ -1,7 +1,5 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import axios from 'axios';
-import router from '../router';
 import { IUser } from '../interfaces';
 
 export const useUserStore = defineStore('user', () => {
@@ -13,30 +11,15 @@ export const useUserStore = defineStore('user', () => {
     currentUser.value = JSON.parse(storedUserData) as IUser;
   }
 
-  function create(email: string | null, password: string | null): void {
-    axios
-      .post("http://localhost:3000/api/v1/users", { email: email, password: password})
-      .then((response) => {
-        if (currentUser === undefined) {
-          login(email, password);
-        }
-      })
+  function updateCurrentUser(user: IUser | null): void {
+    currentUser.value = user;
+
+    if (currentUser.value == null) {
+      localStorage.removeItem(storageKey);
+    } else {
+      localStorage.setItem(storageKey, JSON.stringify(currentUser.value));
+    }
   }
 
-  function login(email: string | null, password: string | null): void {
-    axios.post("http://localhost:3000/auth/login", { email: email, password: password})
-      .then((response) => {
-        currentUser.value = response.data as IUser;
-        localStorage.setItem(storageKey, JSON.stringify(currentUser.value));
-        router.push({ name: 'user' });
-      })
-  }
-
-  function logout(): void {
-    currentUser.value = null;
-    localStorage.removeItem(storageKey);
-    router.push({ name: 'home' });
-  }
-
-  return { currentUser, create, login, logout };
+  return { currentUser, updateCurrentUser };
 })
