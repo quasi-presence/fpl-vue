@@ -2,15 +2,15 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import axios from 'axios';
 import router from '../router';
-import { User } from '../interfaces/user';
+import { IUser } from '../interfaces';
 
 export const useUserStore = defineStore('user', () => {
   const storageKey: string = 'FPL::currentUser';
-  const currentUser = ref<User | null>();
+  const currentUser = ref<IUser | null>();
 
   if (currentUser.value == null && localStorage.getItem(storageKey) != null) {
     let storedUserData: string = localStorage.getItem(storageKey) as string;
-    currentUser.value = JSON.parse(storedUserData) as User;
+    currentUser.value = JSON.parse(storedUserData) as IUser;
   }
 
   function create(email: string | null, password: string | null): void {
@@ -26,7 +26,7 @@ export const useUserStore = defineStore('user', () => {
   function login(email: string | null, password: string | null): void {
     axios.post("http://localhost:3000/auth/login", { email: email, password: password})
       .then((response) => {
-        currentUser.value = response.data as User;
+        currentUser.value = response.data as IUser;
         localStorage.setItem(storageKey, JSON.stringify(currentUser.value));
         router.push({ name: 'user' });
       })
