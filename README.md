@@ -1,18 +1,60 @@
-# Vue 3 + TypeScript + Vite
+# Fantasy Points League (FPL) - FPL-VUE
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Project overview
 
-## Recommended IDE Setup
+See the main FPL repo for project overview [README](https://github.com/quasi-presence/fpl#readme)
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Prerequites
 
-## Type Support For `.vue` Imports in TS
+To run FPL-VUE application you'll need to setup a running FPL backend.  Currently there is only a single backend option.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+See [fpl-rails](https://github.com/quasi-presence/fpl-rails)
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+## Setup
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+FPL-VUE setup is a docker based setup.
+
+1. Checkout the repo
+2. Copy `.env` to `.env.local`
+3. Update `VITE_BACKEND_URL` in .env.local file to point to your running backend instance
+4. Update `docker-compose.yml` as needed
+5. Run `docker-compose run app yarn install`
+6. Start app by running `docker-compose up -d`
+
+## Implemented Features
+
+  * [x] Home page
+  * [x] Sign up
+  * [x] Login
+  * [x] Logout
+  * [x] View dashboard
+  * [x] View profile
+  * [x] Update profile
+  * [ ] Create league
+  * [ ] View dashboard/leagues
+  * [ ] View league details
+  * [ ] Invite league members
+  * [ ] Create league event/schedule
+  * [ ] Member notifications
+    * [ ] Member picks
+    * [ ] Event results
+  * [ ] Select event picks
+  * [ ] Enter event results
+  * [ ] Collect real league data via APIs or web scrapers
+    * [ ] Competitors
+    * [ ] Scheduled events
+    * [ ] Event results
+  * [ ] TBD
+
+## Notes
+
+* This is my first vue.js project and haven't had time to fully explore vue.js best practices/patterns so I'm currently
+  experimenting to see what sticks:
+  * Added multiple layout support
+  * Playing with the concept of using `Actions` as consistent interface for components to invoke system behavior
+  * Focusing stores more on storing the state than providing system actions
+* Decided to use latest version of vue.js and the Composition API instead of the Options API since it's different
+  than my previous experience with React
+* Explored potential testing but not utilizing a traditional TDD approach at the moment
+* Landed on using Tailwind CSS for now vs. another css/component library since it can be easily ported to other frameworks
+* Mostly using interfaces for now vs actual classes to quickly get things going
