@@ -26,7 +26,6 @@ export class Actions {
   public static logout(): void {
     const store = useUserStore();
 
-    // TODO: ensure profileMenu gets closed here
     store.setAuthToken(null);
     store.setProfile(null);
     router.push({ name: 'home' });

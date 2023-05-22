@@ -43,12 +43,10 @@
   }
 
   function logout(): void {
-    Actions.toggleProfileMenu();
     Actions.logout();
   }
 
   function profile(): void {
-    Actions.toggleProfileMenu();
     Actions.viewProfile();
   }
 </script>

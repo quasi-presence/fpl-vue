@@ -20,6 +20,7 @@ const router = createRouter({
 // Verify user is logged in if route requires auth
 router.beforeEach((to, from) => {
   const store = useUserStore();
+  store.profileMenuOpen = false;
 
   let authRequired: boolean = to.matched.some(record => record.meta.requiresAuth);
 
