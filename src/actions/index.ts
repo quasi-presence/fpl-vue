@@ -14,7 +14,8 @@ export class Actions {
 
     axios.post("http://localhost:3000/auth/login", loginData)
       .then((response) => {
-        store.updateCurrentUser(response.data as IUser);
+        store.setAuthToken(response.data['token'] as string);
+        store.setProfile(response.data as IUser);
         router.push({ name: 'dashboard' });
       })
   }
@@ -23,35 +24,38 @@ export class Actions {
     const store = useUserStore();
 
     // TODO: ensure profileMenu gets closed here
-    store.updateCurrentUser(null);
+    store.setAuthToken(null);
+    store.setProfile(null);
     router.push({ name: 'home' });
   }
 
   public static createUser(loginData: ILoginData): void {
     const store = useUserStore();
 
-    axios
-      .post("http://localhost:3000/api/v1/users", loginData)
+    axios.post("http://localhost:3000/api/v1/users", loginData)
       .then((response) => {
-        if (store.currentUser == null) {
+        if (!store.isAuthenticated()) {
           // TODO: set welcome message after creating user
           Actions.login(loginData);
         }
       })
+      .catch((error) => {
+        console.log("createProfile failed: " + error);
+      });
   }
 
   public static saveProfile(profileData: IProfileData): void {
     const store = useUserStore();
-    const url: string = "http://localhost:3000/api/v1/users/" + store.currentUser?.id;
+    const url: string = "http://localhost:3000/api/v1/users/" + store.profile?.id;
 
-    axios.put(url, profileData, { headers: { 'Authorization': store.currentUser?.token} })
-    .then((response) => {
-      store.updateCurrentUser(response.data as IUser);
-      router.push({ name: 'dashboard' });
-    })
-    .catch((error) => {
-      console.log("saveProfile failed: " + error);
-    });
+    axios.put(url, profileData, { headers: { 'Authorization': store.authToken} })
+      .then((response) => {
+        store.setProfile(response.data as IUser);
+        router.push({ name: 'dashboard' });
+      })
+      .catch((error) => {
+        console.log("saveProfile failed: " + error);
+      });
   }
 
   public static viewDashboard(): void {

@@ -3,7 +3,7 @@
     <div class="text-3xl font-bold mb-5">User Profile</div>
 
     <div class="mb-8">
-      <img class="object-center object-cover rounded-full h-36 w-36" src="public/blank_profile_image.png" alt="photo">
+      <img class="object-center object-cover rounded-full h-36 w-36" src="/public/blank_profile_image.png" alt="photo">
     </div>
 
     <div class="text-center">
@@ -59,14 +59,12 @@
   import { IUser, IProfileData } from '../interfaces';
   import { Actions } from '../actions';
 
-  const props = defineProps({
-    user: { type: Object as PropType<IProfileData> | null, default: {} },
-  });
-
+  const props = defineProps<{ profile: IUser | null }>();
   const changingPassword = ref<boolean>(false);
+
   let form = {
-    email: props.user.email,
-    imageUrl: props.user.imageUrl,
+    email: props.profile?.email,
+    imageUrl: props.profile?.imageUrl,
     password: null,
     passwordConfirmation: null
   } as IProfileData;

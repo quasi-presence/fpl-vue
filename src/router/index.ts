@@ -22,14 +22,12 @@ router.beforeEach((to, from) => {
   const store = useUserStore();
 
   let authRequired: boolean = to.matched.some(record => record.meta.requiresAuth);
-  let userNotAuthenticated: boolean = store.currentUser == null;
-  let userAuthenticated: boolean = !userNotAuthenticated;
 
-  if (authRequired && userNotAuthenticated) {
+  if (authRequired && !store.isAuthenticated()) {
     return { name: 'home' };
   }
 
-  if (to.name == 'home' && userAuthenticated) {
+  if (to.name == 'home' && store.isAuthenticated()) {
     return { name: 'dashboard' };
   }
 })

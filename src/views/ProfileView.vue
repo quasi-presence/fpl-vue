@@ -1,6 +1,6 @@
 <template>
   <div class="w-full p-4 flex flex-row justify-center">
-    <UserProfileCard :user="store.currentUser" />
+    <UserProfileCard :profile="store.profile" />
   </div>
 </template>
 

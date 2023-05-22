@@ -3,25 +3,48 @@ import { ref } from 'vue';
 import { IUser } from '../interfaces';
 
 export const useUserStore = defineStore('user', () => {
-  const storageKey: string = 'FPL::currentUser';
-  const currentUser = ref<IUser | null>();
+  const authStorageKey: string = 'FPL::authToken';
+  const authToken = ref<string | null>(null);
+
+  const profileStorageKey: string = 'FPL::profile';
+  const profile = ref<IUser | null>(null);
+
   const sidebarOpen = ref<boolean>(true);
   const profileMenuOpen = ref<boolean>(false);
 
-  if (currentUser.value == null && localStorage.getItem(storageKey) != null) {
-    let storedUserData: string = localStorage.getItem(storageKey) as string;
-    currentUser.value = JSON.parse(storedUserData) as IUser;
+  // Load stored data from localStorage
+  if (authToken.value == null && localStorage.getItem(authStorageKey) != null) {
+    authToken.value = localStorage.getItem(authStorageKey) as string;
   }
 
-  function updateCurrentUser(user: IUser | null): void {
-    currentUser.value = user;
+  if (profile.value == null && localStorage.getItem(profileStorageKey) != null) {
+    let storedUserData: string = localStorage.getItem(profileStorageKey) as string;
+    profile.value = JSON.parse(storedUserData) as IUser;
+  }
 
-    if (currentUser.value == null) {
-      localStorage.removeItem(storageKey);
+  function setAuthToken(token: string | null): void {
+    authToken.value = token;
+
+    if (token == null) {
+      localStorage.removeItem(authStorageKey);
     } else {
-      localStorage.setItem(storageKey, JSON.stringify(currentUser.value));
+      localStorage.setItem(authStorageKey, authToken.value as string);
     }
   }
 
-  return { currentUser, updateCurrentUser, sidebarOpen, profileMenuOpen };
+  function setProfile(value: IUser | null): void {
+    profile.value = value;
+
+    if (profile.value == null) {
+      localStorage.removeItem(profileStorageKey);
+    } else {
+      localStorage.setItem(profileStorageKey, JSON.stringify(profile.value));
+    }
+  }
+
+  function isAuthenticated(): boolean {
+    return authToken.value != null;
+  }
+
+  return { authToken, setAuthToken, profile, setProfile, isAuthenticated, sidebarOpen, profileMenuOpen };
 })
