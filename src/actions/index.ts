@@ -14,10 +14,13 @@ export class Actions {
 
     axios.post("http://localhost:3000/auth/login", loginData)
       .then((response) => {
-        store.setAuthToken(response.data['token'] as string);
+        store.setAuthToken(response.headers['authorization'] as string);
         store.setProfile(response.data as IUser);
         router.push({ name: 'dashboard' });
       })
+      .catch((error) => {
+        console.log("login failed: " + error);
+      });
   }
 
   public static logout(): void {
