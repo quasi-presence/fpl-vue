@@ -4,7 +4,7 @@
 
 See the main FPL repo for project overview [README](https://github.com/quasi-presence/fpl#readme)
 
-## Prerequites
+## Prerequisites
 
 To run FPL-VUE application you'll need to setup a running FPL backend.  Currently there is only a single backend option.
 
