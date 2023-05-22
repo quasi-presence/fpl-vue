@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { IUser } from '../interfaces';
+import { IUser, IUserAlert } from '../interfaces';
 
 export const useUserStore = defineStore('user', () => {
   const authStorageKey: string = 'FPL::authToken';
@@ -8,6 +8,8 @@ export const useUserStore = defineStore('user', () => {
 
   const profileStorageKey: string = 'FPL::profile';
   const profile = ref<IUser | null>(null);
+
+  const alert = ref<IUserAlert>({ dismissed: true } as IUserAlert);
 
   const sidebarOpen = ref<boolean>(true);
   const profileMenuOpen = ref<boolean>(false);
@@ -46,5 +48,5 @@ export const useUserStore = defineStore('user', () => {
     return authToken.value != null;
   }
 
-  return { authToken, setAuthToken, profile, setProfile, isAuthenticated, sidebarOpen, profileMenuOpen };
+  return { authToken, setAuthToken, profile, setProfile, isAuthenticated, alert, sidebarOpen, profileMenuOpen };
 })

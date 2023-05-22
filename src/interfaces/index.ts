@@ -21,3 +21,9 @@ export interface IProfileData extends IUser {
   password: string | null;
   passwordConfirmation: string | null;
 }
+
+export interface IUserAlert {
+  type: string;
+  message: string;
+  dismissed: boolean
+}

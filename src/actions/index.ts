@@ -1,6 +1,6 @@
 import axios from 'axios';
 import router from '../router';
-import { IUser, ILeague, IProfileData, ILoginData } from '../interfaces';
+import { IUser, ILeague, IProfileData, ILoginData, IUserAlert } from '../interfaces';
 import { useUserStore } from '../stores/user';
 
 export class Actions {
@@ -38,7 +38,7 @@ export class Actions {
     axios.post(url, loginData)
       .then((response) => {
         if (!store.isAuthenticated()) {
-          // TODO: set welcome message after creating user
+          Actions.setAlert('success', 'Welcome to the Fantasy Points League!');
           Actions.login(loginData);
         }
       })
@@ -54,9 +54,11 @@ export class Actions {
     axios.put(url, profileData, { headers: { 'Authorization': store.authToken} })
       .then((response) => {
         store.setProfile(response.data as IUser);
+        Actions.setAlert('success', 'Profile saved successfully.');
         router.push({ name: 'dashboard' });
       })
       .catch((error) => {
+        Actions.setAlert('error', 'Profile saved failed.');
         console.log("saveProfile failed: " + error);
       });
   }
@@ -123,6 +125,14 @@ export class Actions {
 
   public static toggleProfileMenu(): void {
     Actions.getStore().profileMenuOpen = !Actions.getStore().profileMenuOpen;
+  }
+
+  public static setAlert(type: string, message: string): void {
+    Actions.getStore().alert = { type: type, message: message, dismissed: false} as IUserAlert
+  }
+
+  public static dismissAlert(): void {
+    Actions.getStore().alert.dismissed = true;
   }
 
   private static backend_url(endpoint: string): string {

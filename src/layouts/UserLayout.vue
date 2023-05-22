@@ -4,7 +4,10 @@
     <UserNavbar />
     <div class="flex">
       <UserSidebar />
+      <div class="w-full flex flex-col">
+        <UserAlert />
       <slot></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -12,4 +15,5 @@
 <script setup lang="ts">
   import UserNavbar from '../components/UserNavbar.vue';
   import UserSidebar from '../components/UserSidebar.vue';
+  import UserAlert from '../components/UserAlert.vue';
 </script>
