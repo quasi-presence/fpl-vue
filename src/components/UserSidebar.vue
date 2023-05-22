@@ -11,7 +11,7 @@
   import { Actions } from '../actions';
   import UserSidebarLink from './UserSidebarLink.vue';
 
-  const store = Actions.getState();
+  const store = Actions.getStore();
 
   function dashboard(): void {
     Actions.viewDashboard();

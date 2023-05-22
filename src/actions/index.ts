@@ -4,8 +4,7 @@ import { IUser, ILeague, IProfileData, ILoginData } from '../interfaces';
 import { useUserStore } from '../stores/user';
 
 export class Actions {
-  // TODO: rename the function to getStore to avoid confusion
-  public static getState() {
+  public static getStore() {
     return useUserStore();
   }
 
@@ -120,11 +119,11 @@ export class Actions {
   }
 
   public static toggleSidebar(): void {
-    Actions.getState().sidebarOpen = !Actions.getState().sidebarOpen;
+    Actions.getStore().sidebarOpen = !Actions.getStore().sidebarOpen;
   }
 
   public static toggleProfileMenu(): void {
-    Actions.getState().profileMenuOpen = !Actions.getState().profileMenuOpen;
+    Actions.getStore().profileMenuOpen = !Actions.getStore().profileMenuOpen;
   }
 
   private static backend_url(endpoint: string): string {

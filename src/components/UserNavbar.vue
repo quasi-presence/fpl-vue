@@ -32,7 +32,7 @@
 <script setup lang="ts">
   import { Actions } from '../actions';
 
-  const store = Actions.getState();
+  const store = Actions.getStore();
 
   function toggleSidebar(): void {
     Actions.toggleSidebar();

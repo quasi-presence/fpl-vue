@@ -8,5 +8,5 @@
   import { Actions } from '../actions';
   import UserProfileCard from '../components/UserProfileCard.vue';
 
-  const store = Actions.getState();
+  const store = Actions.getStore();
 </script>
