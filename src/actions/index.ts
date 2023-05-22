@@ -11,8 +11,9 @@ export class Actions {
 
   public static login(loginData: ILoginData): void {
     const store = useUserStore();
+    const url: string = Actions.backend_url('/auth/login');
 
-    axios.post("http://localhost:3000/auth/login", loginData)
+    axios.post(url, loginData)
       .then((response) => {
         store.setAuthToken(response.headers['authorization'] as string);
         store.setProfile(response.data as IUser);
@@ -34,8 +35,9 @@ export class Actions {
 
   public static createUser(loginData: ILoginData): void {
     const store = useUserStore();
+    const url: string = Actions.backend_url('/api/v1/users');
 
-    axios.post("http://localhost:3000/api/v1/users", loginData)
+    axios.post(url, loginData)
       .then((response) => {
         if (!store.isAuthenticated()) {
           // TODO: set welcome message after creating user
@@ -49,7 +51,7 @@ export class Actions {
 
   public static saveProfile(profileData: IProfileData): void {
     const store = useUserStore();
-    const url: string = "http://localhost:3000/api/v1/users/" + store.profile?.id;
+    const url: string = Actions.backend_url('/api/v1/users/' + store.profile?.id);
 
     axios.put(url, profileData, { headers: { 'Authorization': store.authToken} })
       .then((response) => {
@@ -123,6 +125,10 @@ export class Actions {
 
   public static toggleProfileMenu(): void {
     Actions.getState().profileMenuOpen = !Actions.getState().profileMenuOpen;
+  }
+
+  private static backend_url(endpoint: string): string {
+    return import.meta.env.VITE_BACKEND_URL + endpoint;
   }
 }
 
