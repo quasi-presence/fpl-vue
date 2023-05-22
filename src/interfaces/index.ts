@@ -2,7 +2,6 @@ export interface IUser {
   id: number | null;
   email: string | null;
   imageUrl: string | null;
-  token: string | null;
 }
 
 export interface ILeague {
