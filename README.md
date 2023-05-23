@@ -48,13 +48,12 @@ FPL-VUE setup is a docker based setup.
 
 ## Notes
 
-* This is my first vue.js project and haven't had time to fully explore vue.js best practices/patterns so I'm currently
-  experimenting to see what sticks:
-  * Added multiple layout support
-  * Playing with the concept of using `Actions` as consistent interface for components to invoke system behavior
-  * Focusing stores more on storing the state than providing system actions
-* Decided to use latest version of vue.js and the Composition API instead of the Options API since it's different
-  than my previous experience with React
+* Decided to use latest version of vue.js and the Composition API instead of the Options API
+* Experimenting with the concept of using `Actions` as consistent interface for components to invoke system behavior
+  *  Focus stores more on state
+  *  Will revisit this and compare it to having all actions live on the stores
 * Explored potential testing but not utilizing a traditional TDD approach at the moment
 * Landed on using Tailwind CSS for now vs. another css/component library since it can be easily ported to other frameworks
 * Mostly using interfaces for now vs actual classes to quickly get things going
+* Lot's of opportunities to create reusable components like buttons, input fields, etc... to reduce duplication
+* Would like to create an API class to encapsulate the axios calls that currently live in the Actions class
